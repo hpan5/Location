@@ -6,6 +6,7 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [city, setCity] = useState('');
   const [zip, setZip] = useState('');
+  const [postState, setPostState] = useState('idle');
 
   const handleSubmit = (e) => {
     e.preventDefault();
