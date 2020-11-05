@@ -24,6 +24,7 @@ const App = () => {
 
   const fetchPosts = async () => {
     try {
+      setPostState('loading')
       let url = '/bing/locations?';
       let apiUrl = url + `locality=${city}`+ (zip && `&postalCode=${zip}`) + '&countryRegion=US';
       console.log(apiUrl);
@@ -31,10 +32,11 @@ const App = () => {
         (response) => {
           setPosts(response.data.resourceSets[0].resources);
           console.log("posts: ", posts);
-          console.log(posts[0].name);
+          setPostState('succeeded')
         }
       );
     } catch (e) {
+      setPostState('failed')
       console.log(e);
     }
   }
@@ -65,12 +67,12 @@ const App = () => {
           <tr>
             <th> Name </th>
             <th> South Latitude </th>
+            <th> West Longitude </th>
             <th> North Latitude </th>
-            <th> East Latitude </th>
-            <th> East Latitude </th>
+            <th> East Longitude </th>
           </tr>
         </thead>
-        <TableBody posts={posts}/>
+        <TableBody posts={posts} postState={postState}/>
       </table>
     </div>
     
